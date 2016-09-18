@@ -3,122 +3,135 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Bloc Base Project</title>
+    <title>Bloc Chat</title>
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="styles/simple-sidebar.css">
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 
 
 
 <body ng-controller="RoomCtrl">
-    <ul>
-        <li ng-repeat="room in rooms">{{ room.$value }}</li>
-    </ul>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#/">
+                  Bloc Chat
+                  <button class="btn btn-default" data-toggle="modal" data-target="#myModal">New room</button>
+              </a>
+            </li>
+            <li ng-repeat="room in rooms"><a href="#/" ng-click="getMessagesForRoom(room)">{{room.$value}}</a></li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
 
     <div>
-      <input type="text" ng-model="newRoom">
-      <button type="button" name="button" ng-click="addRoom(newRoom)">ADD</button>
+        <input type="text" ng-model="newRoom">
+        <button type="button" name="button" ng-click="addRoom(newRoom)">ADD</button>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
 
-    <!-- AngularFire -->
-    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+        <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
 
-    <script>
-        // Initialize Firebase
+        <script>
+            // Initialize Firebase
 
-        var config = {
-            apiKey: "AIzaSyDTyY8t9NLMKRp2dE3k2K6L0mU0rEXSY7U",
-            authDomain: "bloc-chat-414e0.firebaseapp.com",
-            databaseURL: "https://bloc-chat-414e0.firebaseio.com",
-            storageBucket: "bloc-chat-414e0.appspot.com",
-        };
-
-        firebase.initializeApp(config);
-
-        var app = angular.module("blocChat", ["firebase"]);
-
-        (function() {
-          function Room($firebaseArray) {
-            var ref = firebase.database().ref().child("rooms");
-            var rooms = $firebaseArray(ref);
-            return {
-                all: rooms
+            var config = {
+                apiKey: "AIzaSyDTyY8t9NLMKRp2dE3k2K6L0mU0rEXSY7U",
+                authDomain: "bloc-chat-414e0.firebaseapp.com",
+                databaseURL: "https://bloc-chat-414e0.firebaseio.com",
+                storageBucket: "bloc-chat-414e0.appspot.com",
             };
-          }
-          angular
-            .module('blocChat')
-            .factory('Room', ['$firebaseArray', Room]);
-        }());
 
-        (function() {
-          function RoomCtrl($scope, Room) {
-            var ref = firebase.database().ref().child("messages");
-            // create a synchronized array
-            // click on `index.html` above to see it used in the DOM!
-            $scope.rooms = Room.all;
+            firebase.initializeApp(config);
 
-            $scope.addRoom = function(room) {
-              Room.all.$add(room);
-              $scope.newRoom = '';
-            }
-          }
-          angular
-            .module('blocChat')
-            .controller('RoomCtrl', ['$scope', 'Room', RoomCtrl]);
-        }());
+            var app = angular.module("blocChat", ["firebase"]);
 
-        // app.factory('Room', function($firebaseArray) {
-        //     var ref = firebase.database().ref().child("rooms");
-        //     var rooms = $firebaseArray(ref);
-        //     return {
-        //         all: rooms
-        //     };
-        // });
+            (function() {
+                function Room($firebaseArray) {
+                    var ref = firebase.database().ref().child("rooms");
+                    var rooms = $firebaseArray(ref);
+                    return {
+                        all: rooms
+                    };
+                }
+                angular
+                    .module('blocChat')
+                    .factory('Room', ['$firebaseArray', Room]);
+            }());
 
-        // angular.module('blocChat')
-        //   .controller("SampleCtrl", ['$scope', 'Room', function($scope, Room) {
-        //     var ref = firebase.database().ref().child("messages");
-        //     // create a synchronized array
-        //     // click on `index.html` above to see it used in the DOM!
-        //     $scope.rooms = Room.all;
-        //
-        //     $scope.addRoom = function(room) {
-        //       Room.all.$add(room);
-        //       $scope.newRoom = '';
-        //     }
-        // })];
+            (function() {
+                function RoomCtrl($scope, Room) {
+                    var ref = firebase.database().ref().child("messages");
+                    // create a synchronized array
+                    // click on `index.html` above to see it used in the DOM!
+                    $scope.rooms = Room.all;
 
-        //var app = angular.module("sampleApp", ["firebase"]);
-        //app.controller("SampleCtrl", function($scope, $firebaseObject) {
-        //  var ref = firebase.database().ref().child("data");
-        //  // download the data into a local object
-        //  var syncObject = $firebaseObject(ref);
-        //  // synchronize the object with a three-way data binding
-        //  // click on `index.html` above to see it used in the DOM!
-        //  syncObject.$bindTo($scope, "data");
-        //});
+                    $scope.addRoom = function(room) {
+                        Room.all.$add(room);
+                        $scope.newRoom = '';
+                    }
+                }
+                angular
+                    .module('blocChat')
+                    .controller('RoomCtrl', ['$scope', 'Room', RoomCtrl]);
+            }());
+
+            // app.factory('Room', function($firebaseArray) {
+            //     var ref = firebase.database().ref().child("rooms");
+            //     var rooms = $firebaseArray(ref);
+            //     return {
+            //         all: rooms
+            //     };
+            // });
+
+            // angular.module('blocChat')
+            //   .controller("SampleCtrl", ['$scope', 'Room', function($scope, Room) {
+            //     var ref = firebase.database().ref().child("messages");
+            //     // create a synchronized array
+            //     // click on `index.html` above to see it used in the DOM!
+            //     $scope.rooms = Room.all;
+            //
+            //     $scope.addRoom = function(room) {
+            //       Room.all.$add(room);
+            //       $scope.newRoom = '';
+            //     }
+            // })];
+
+            //var app = angular.module("sampleApp", ["firebase"]);
+            //app.controller("SampleCtrl", function($scope, $firebaseObject) {
+            //  var ref = firebase.database().ref().child("data");
+            //  // download the data into a local object
+            //  var syncObject = $firebaseObject(ref);
+            //  // synchronize the object with a three-way data binding
+            //  // click on `index.html` above to see it used in the DOM!
+            //  syncObject.$bindTo($scope, "data");
+            //});
 
 
-        // (function() {
-        //     function Room($firebaseArray) {
-        //         var ref = firebase.database().ref().child("rooms");
-        //         var rooms = $firebaseArray(ref);
-        //
-        //         return {
-        //             all: rooms
-        //         };
-        //     }
-        //
-        //     angular
-        //         .module('blocChat')
-        //         .factory('Room', ['$firebaseArray', Room]);
-        // }());
-    </script>
+            // (function() {
+            //     function Room($firebaseArray) {
+            //         var ref = firebase.database().ref().child("rooms");
+            //         var rooms = $firebaseArray(ref);
+            //
+            //         return {
+            //             all: rooms
+            //         };
+            //     }
+            //
+            //     angular
+            //         .module('blocChat')
+            //         .factory('Room', ['$firebaseArray', Room]);
+            // }());
+        </script>
 
-    <script src="/scripts/app.js"></script>
+        <script src="/scripts/app.js"></script>
 
 </body>
 
