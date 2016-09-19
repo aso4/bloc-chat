@@ -4,17 +4,22 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Bloc Chat</title>
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="styles/bootstrap.css" />
+    <!-- <link rel="stylesheet" href="/styles/style.css"> -->
     <link rel="stylesheet" href="styles/simple-sidebar.css">
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="scripts/example.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
-
 
 <body ng-controller="RoomCtrl">
     <!-- Sidebar -->
-    <div id="sidebar-wrapper">
+    <!--<div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
                 <a href="#/">
@@ -24,114 +29,76 @@
             </li>
             <li ng-repeat="room in rooms"><a href="#/" ng-click="getMessagesForRoom(room)">{{room.$value}}</a></li>
         </ul>
-    </div>
+    </div> -->
     <!-- /#sidebar-wrapper -->
-
-    <div>
-        <input type="text" ng-model="newRoom">
-        <button type="button" name="button" ng-click="addRoom(newRoom)">ADD</button>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-
-        <!-- Firebase -->
-        <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
-
-        <!-- AngularFire -->
-        <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
-
-        <script>
-            // Initialize Firebase
-
-            var config = {
-                apiKey: "AIzaSyDTyY8t9NLMKRp2dE3k2K6L0mU0rEXSY7U",
-                authDomain: "bloc-chat-414e0.firebaseapp.com",
-                databaseURL: "https://bloc-chat-414e0.firebaseio.com",
-                storageBucket: "bloc-chat-414e0.appspot.com",
-            };
-
-            firebase.initializeApp(config);
-
-            var app = angular.module("blocChat", ["firebase"]);
-
-            (function() {
-                function Room($firebaseArray) {
-                    var ref = firebase.database().ref().child("rooms");
-                    var rooms = $firebaseArray(ref);
-                    return {
-                        all: rooms
-                    };
-                }
-                angular
-                    .module('blocChat')
-                    .factory('Room', ['$firebaseArray', Room]);
-            }());
-
-            (function() {
-                function RoomCtrl($scope, Room) {
-                    var ref = firebase.database().ref().child("messages");
-                    // create a synchronized array
-                    // click on `index.html` above to see it used in the DOM!
-                    $scope.rooms = Room.all;
-
-                    $scope.addRoom = function(room) {
-                        Room.all.$add(room);
-                        $scope.newRoom = '';
-                    }
-                }
-                angular
-                    .module('blocChat')
-                    .controller('RoomCtrl', ['$scope', 'Room', RoomCtrl]);
-            }());
-
-            // app.factory('Room', function($firebaseArray) {
-            //     var ref = firebase.database().ref().child("rooms");
-            //     var rooms = $firebaseArray(ref);
-            //     return {
-            //         all: rooms
-            //     };
-            // });
-
-            // angular.module('blocChat')
-            //   .controller("SampleCtrl", ['$scope', 'Room', function($scope, Room) {
-            //     var ref = firebase.database().ref().child("messages");
-            //     // create a synchronized array
-            //     // click on `index.html` above to see it used in the DOM!
-            //     $scope.rooms = Room.all;
-            //
-            //     $scope.addRoom = function(room) {
-            //       Room.all.$add(room);
-            //       $scope.newRoom = '';
-            //     }
-            // })];
-
-            //var app = angular.module("sampleApp", ["firebase"]);
-            //app.controller("SampleCtrl", function($scope, $firebaseObject) {
-            //  var ref = firebase.database().ref().child("data");
-            //  // download the data into a local object
-            //  var syncObject = $firebaseObject(ref);
-            //  // synchronize the object with a three-way data binding
-            //  // click on `index.html` above to see it used in the DOM!
-            //  syncObject.$bindTo($scope, "data");
-            //});
-
-
-            // (function() {
-            //     function Room($firebaseArray) {
-            //         var ref = firebase.database().ref().child("rooms");
-            //         var rooms = $firebaseArray(ref);
-            //
-            //         return {
-            //             all: rooms
-            //         };
-            //     }
-            //
-            //     angular
-            //         .module('blocChat')
-            //         .factory('Room', ['$firebaseArray', Room]);
-            // }());
+    <div ng-controller="ModalDemoCtrl as $ctrl">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <ul>
+                    <li ng-repeat="item in $ctrl.items">
+                        <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ $ctrl.selected.item }}</b>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+            </div>
         </script>
+    </div>
 
-        <script src="/scripts/app.js"></script>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
+
+    <!-- Modal -->
+    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">New Room</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="roomName">Room Name</label>
+                        <input type="text" id="roomName" ng-model="newRoomName" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="addRoom(newRoomName)" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDTyY8t9NLMKRp2dE3k2K6L0mU0rEXSY7U",
+            authDomain: "bloc-chat-414e0.firebaseapp.com",
+            databaseURL: "https://bloc-chat-414e0.firebaseio.com",
+            storageBucket: "bloc-chat-414e0.appspot.com",
+        };
+
+        firebase.initializeApp(config);
+
+        var app = angular.module("blocChat", ["firebase"]);
+    </script>
+    <script src="/scripts/services/Room.js"></script>
+    <script src="/scripts/controllers/RoomCtrl.js"></script>
+    <script src="/scripts/app.js"></script>
 
 </body>
 
