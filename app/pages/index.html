@@ -23,10 +23,10 @@
                 <li class="sidebar-brand">
                     <a href="#/">
                   Bloc Chat
-                  <button class="btn btn-default" data-toggle="modal" data-target="#myModal">New room</button>
+                  <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><strong>New room</strong></button>
               </a>
                 </li>
-                <li ng-repeat="room in rooms"><a href="#/" ng-click="getMessagesForRoom(room)">{{room.name}}</a></li>
+                <li ng-repeat="room in rooms"><a href="#/" ng-click="getMessagesForRoom(room)"><strong>{{room.name}}</strong></a></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -45,7 +45,7 @@
                             </div>
                             <div class="row" ng-repeat="message in roomMessages">
                                 <div class="col col-lg-6">
-                                    <div class="name">{{message.name}}</div>
+                                    <div class="name"><strong>{{message.name}}</strong></div>
                                     <div class="message">{{message.message}}</div>
                                 </div>
                                 <div class="col col-lg-6 text-right">
