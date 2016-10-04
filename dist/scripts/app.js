@@ -1,28 +1,21 @@
-//  (function() {
-//      function config($stateProvider, $locationProvider) {
-//          $locationProvider
-//              .html5Mode({
-//                  enabled: true,
-//                  requireBase: false
-//              });
-//          $stateProvider
-//              .state('home', {
-//                  url: '/home',
-//                  templateUrl: '/templates/home.html'
-//              });
-// //             .state('album', {
-// //                 url: '/album',
-// //                 controller: 'AlbumCtrl as album',
-// //                 templateUrl: '/templates/album.html'
-// //             })
-// //             .state('collection', {
-// //                 url: '/collection',
-// //                 controller: 'CollectionCtrl as collection',
-// //                 templateUrl: '/templates/collection.html'
-// //             });
-//      }
-//
-//      angular
-//          .module('blocChat', ['ui.router'])
-//          .config(config);
-//  })();
+'use strict';
+
+/**
+ * @ngdoc overview
+ * @name blocChatApp
+ * @description
+ * # blocChatApp
+ *
+ * Main module of the application.
+ */
+
+angular.module('blocChat', ['ngCookies', 'firebase']).run(['$cookies', function($cookies) {
+
+        if (!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === '') {
+            angular.element('#myModal2').modal({
+                backdrop: 'static'
+            });
+            angular.element('#myModal2').modal('show');
+        }
+
+    }]);

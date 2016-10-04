@@ -81,11 +81,32 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModal2Label">New User</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nickName">Nickname</label>
+                        <input type="text" id="nickName" ng-model="newNickName" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="addUser(newNickName)">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
 
     <script>
         // Initialize Firebase
@@ -101,11 +122,11 @@
         var app = angular.module("blocChat", ["firebase"]);
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/scripts/app.js"></script>
     <script src="/scripts/services/Messages.js"></script>
-    <script src="/scripts/controllers/MessagesCtrl.js"></script>
     <script src="/scripts/services/Room.js"></script>
     <script src="/scripts/controllers/RoomCtrl.js"></script>
-    <script src="/scripts/app.js"></script>
+
 
 </body>
 
