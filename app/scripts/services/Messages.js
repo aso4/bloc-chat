@@ -7,6 +7,6 @@
         };
     }
     angular
-        .module('blocChat')
+        .module('fireChat')
         .factory('Messages', ['$firebaseArray', Messages]);
 }());

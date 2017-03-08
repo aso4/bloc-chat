@@ -2,14 +2,15 @@
 
 /**
  * @ngdoc overview
- * @name blocChatApp
+ * @name fireChatApp
  * @description
- * # blocChatApp
+ * # fireChatApp
  *
  * Main module of the application.
  */
 
-angular.module('blocChat', ['ngCookies', 'firebase']).run(['$cookies', function($cookies) {
+angular.module('fireChat', ['ngCookies', 'firebase'])
+       .run(['$cookies', function($cookies) {
 
         if (!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === '') {
             angular.element('#myModal2').modal({

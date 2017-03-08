@@ -1,16 +1,16 @@
 {
-  "name": "bloc-frontend-project-starter",
+  "name": "FireChat",
   "version": "0.0.2",
-  "description": "Starter project for the Bloc Frontend Web Development",
+  "description": "An Angular-based chatroom app with a Firebase backend",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bloc/bloc-frontend-project-starter"
+    "url": "https://github.com/aso4/firechat"
   },
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "author": "Bloc Inc",
+  "author": "Albert So",
   "license": "ISC",
   "dependencies": {
     "hapi": "~7.5.0",

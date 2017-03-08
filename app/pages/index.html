@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html ng-app="blocChat">
+<html ng-app="fireChat">
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Bloc Chat</title>
+    <title>FireChat</title>
     <!-- <link rel="stylesheet" href="/styles/style.css"> -->
     <link rel="stylesheet" href="styles/simple-sidebar.css">
     <!-- build:css(.tmp) styles/main.css -->
@@ -22,7 +22,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#/">
-                  Bloc Chat
+                  FireChat
                   <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><strong>New room</strong></button>
               </a>
                 </li>
@@ -119,7 +119,7 @@
 
         firebase.initializeApp(config);
 
-        var app = angular.module("blocChat", ["firebase"]);
+        var app = angular.module("fireChat", ["firebase"]);
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="/scripts/app.js"></script>

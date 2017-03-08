@@ -15,7 +15,7 @@
 
         //USERS
         $scope.addUser = function(nickname) {
-            console.log(nickname);
+            console.log("nickname = ", nickname);
             if (nickname === undefined) {
                 angular.element('#myModal2').modal({
                     backdrop: 'static'
@@ -30,7 +30,7 @@
         $scope.getMessagesForRoom = function(room) {
             $scope.currentRoom = room;
             $scope.currentRoomName = room.name;
-            console.log(room);
+            console.log("room = ", room);
             var currentRoomMessagesRef = new firebase.database().ref().child('rooms' + '/' + room.$id + '/messages/');
             console.log(currentRoomMessagesRef);
             $scope.roomMessages = $firebaseArray(currentRoomMessagesRef);
@@ -49,6 +49,6 @@
         };
     }
     angular
-        .module('blocChat') //ngCookies not injected anywhere
+        .module('fireChat') //ngCookies not injected anywhere
         .controller('RoomCtrl', ['$scope', '$window', '$firebaseArray', '$cookies', 'Room', RoomCtrl]);
 }());
